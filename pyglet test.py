@@ -58,19 +58,24 @@ while True:
 
             if event.key == pygame.K_UP:
                 print("User said up")
-                char_y+=-30
+                char_y_move=-3
 
             elif event.key == pygame.K_DOWN:
                 print("User said down")
-                char_y+=30
+                char_y_move=3
 
             elif event.key == pygame.K_RIGHT:
                  print("User said right")
-                 char_x+=30
+                 char_x_move=3
 
             elif event.key == pygame.K_LEFT:
                 print("User said left")
-                char_x+=-30
+                char_x_move=-3
+
+        elif event.type == KEYUP:
+
+            char_x_move=0
+            char_y_move=0
 
     ### Game logic ###
     '''
@@ -110,6 +115,9 @@ while True:
 
     hitbox_x=dx
     hitbox_y=ay
+
+    char_x+=char_x_move
+    char_y+=char_y_move
 
     ### Graphics ###
 
