@@ -20,9 +20,11 @@ font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
 
 bounce = pygame.image.load('windowz.png')
 
+logo = pygame.image.load('katte.png')
+
 maze = pygame.image.load('James_maze.png')
 
-pygame.display.set_icon(bounce)
+pygame.display.set_icon(logo)
 
 '''
 # fps counter #
