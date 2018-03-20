@@ -18,7 +18,7 @@ pygame.display.set_caption("Minesweeper Config")
 
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
 
-bounce = pygame.image.load('goface.jpg')
+bounce = pygame.image.load('windowz.png')
 
 maze = pygame.image.load('James_maze.png')
 
@@ -44,6 +44,9 @@ dx = 1+33
 
 char_x=0
 char_y=0
+
+char_x_move=0
+char_y_move=0
 
 while True:
 
@@ -140,7 +143,9 @@ while True:
 
     board.blit(fps_text, [3, -3])
     '''
-    pygame.draw.rect(board,(0,255,127),[hitbox_x,hitbox_y,33,33],0)
+    #pygame.draw.rect(board,(0,255,127),[hitbox_x,hitbox_y,33,33],0)
+
+    board.blit(bounce, (hitbox_x,hitbox_y))
 
     pygame.draw.rect(board,(0,255,12),[char_x,char_y,33,33],0)
     
