@@ -37,16 +37,16 @@ x = 0
 x_movement=4
 y_movement=4
 
-ay = 0+20
-bx = 34+33
-cy = 33+20
-dx = 1+33
+top_face = 0+20
+right_face = 34+33
+bottom_face = 33+20
+left_face = 1+33
 
-char_x=0
-char_y=0
+char_pos_x=0
+char_pos_y=0
 
-char_x_move=0
-char_y_move=0
+char_move_x=0
+char_move_y=0
 
 while True:
 
@@ -61,24 +61,24 @@ while True:
 
             if event.key == pygame.K_UP:
                 print("User said up")
-                char_y_move=-3
+                char_move_y=-3
 
             elif event.key == pygame.K_DOWN:
                 print("User said down")
-                char_y_move=3
+                char_move_y=3
 
             elif event.key == pygame.K_RIGHT:
                  print("User said right")
-                 char_x_move=3
+                 char_move_x=3
 
             elif event.key == pygame.K_LEFT:
                 print("User said left")
-                char_x_move=-3
+                char_move_x=-3
 
         elif event.type == KEYUP:
 
-            char_x_move=0
-            char_y_move=0
+            char_move_x=0
+            char_move_y=0
 
     ### Game logic ###
     '''
@@ -95,32 +95,32 @@ while True:
     '''
     # bouncing thing #
 
-    if ay <= 0:
+    if top_face <= 0:
 
         y_movement=4
 
-    elif bx >= x_size:
+    elif right_face >= x_size:
 
         x_movement=-4
 
-    elif cy >= y_size:
+    elif bottom_face >= y_size:
 
         y_movement=-4
 
-    elif dx <= 0:
+    elif left_face <= 0:
 
         x_movement=4
 
-    ay += y_movement
-    bx += x_movement
-    cy += y_movement
-    dx += x_movement
+    top_face += y_movement
+    right_face += x_movement
+    bottom_face += y_movement
+    left_face += x_movement
 
-    hitbox_x=dx
-    hitbox_y=ay
+    hitbox_x=left_face
+    hitbox_y=top_face
 
-    char_x+=char_x_move
-    char_y+=char_y_move
+    char_pos_x+=char_move_x
+    char_pos_y+=char_move_y
 
     ### Graphics ###
 
@@ -147,7 +147,7 @@ while True:
 
     board.blit(bounce, (hitbox_x,hitbox_y))
 
-    pygame.draw.rect(board,(0,255,12),[char_x,char_y,33,33],0)
+    pygame.draw.rect(board,(0,255,12),[char_pos_x,char_pos_y,33,33],0)
     
     ### Render ###
 
