@@ -6,11 +6,11 @@ clock = pygame.time.Clock()
 
 pygame.init()
 
-x_size=300
+x_size = 300
 
-y_size=330
+y_size = 330
 
-size = ( x_size , y_size )
+size = (x_size, y_size)
 
 board = pygame.display.set_mode(size)
 
@@ -24,29 +24,29 @@ maze = pygame.image.load('James_maze.png')
 
 pygame.display.set_icon(bounce)
 
-'''
+
 # fps counter #
 
 y_origin = time.time()
 
 x = 0
-'''
+
 
 # bouncing thing #
 
-x_movement=4
-y_movement=4
+x_movement = 4
+y_movement = 4
 
-top_face = 0+20
-right_face = 34+33
-bottom_face = 33+20
-left_face = 1+33
+top_face = 0 + 20
+right_face = 34 + 33
+bottom_face = 33 + 20
+left_face = 1 + 33
 
-char_pos_x=0
-char_pos_y=0
+char_pos_x = 0
+char_pos_y = 0
 
-char_move_x=0
-char_move_y=0
+char_move_x = 0
+char_move_y = 0
 
 while True:
 
@@ -81,58 +81,58 @@ while True:
             char_move_y=0
 
     ### Game logic ###
-    '''
+
     # fps counter #
-    
-    x+=1
-    y=time.time()-y_origin
+    '''
+    x += 1
+    y = time.time() - y_origin
     try:
-        z=int(x/y)
+        z = int(x/y)
     except ZeroDivisionError:
-        z=0
-    fps_text = font.render(str(z),True,(0,255,0))
-    fps_text_2 = font.render(str(z),True,(0,200,0))
+        z = 0
+    fps_text = font.render(str(z), True, (0, 255, 0))
+    fps_text_2 = font.render(str(z), True, (0, 200, 0))
     '''
     # bouncing thing #
 
     if top_face <= 0:
 
-        y_movement=4
+        y_movement = 4
 
     elif right_face >= x_size:
 
-        x_movement=-4
+        x_movement = -4
 
     elif bottom_face >= y_size:
 
-        y_movement=-4
+        y_movement=  -4
 
     elif left_face <= 0:
 
-        x_movement=4
+        x_movement = 4
 
     top_face += y_movement
     right_face += x_movement
     bottom_face += y_movement
     left_face += x_movement
 
-    hitbox_x=left_face
-    hitbox_y=top_face
+    hitbox_x = left_face
+    hitbox_y = top_face
 
-    char_pos_x+=char_move_x
-    char_pos_y+=char_move_y
+    char_pos_x += char_move_x
+    char_pos_y += char_move_y
 
     ### Graphics ###
 
     board.fill((255,255,255))
 
-    pygame.draw.rect(board,(200,200,200),[0,0,x_size,y_size],3)
+    pygame.draw.rect(board, (200, 200, 200), [0, 0, x_size, y_size], 3)
 
-    pygame.draw.rect(board,(200,200,200),[0,0,x_size,30],0)
+    pygame.draw.rect(board, (200, 200, 200), [0, 0, x_size, 30], 0)
 
-    pygame.draw.rect(board,(100,100,100),[1,1,x_size-1,y_size-1],1)
+    pygame.draw.rect(board,  (100, 100, 100), [1, 1, x_size-1, y_size-1], 1)
 
-    pygame.draw.rect(board,(100,100,100),[1,29,x_size-2,1],1)
+    pygame.draw.rect(board,(100, 100, 100), [1, 29, x_size-2, 1], 1)
 
     board.blit(maze, (0, 0))
     
@@ -145,9 +145,9 @@ while True:
     '''
     #pygame.draw.rect(board,(0,255,127),[hitbox_x,hitbox_y,33,33],0)
 
-    board.blit(bounce, (hitbox_x,hitbox_y))
+    board.blit(bounce, (hitbox_x, hitbox_y))
 
-    pygame.draw.rect(board,(0,255,12),[char_pos_x,char_pos_y,33,33],0)
+    pygame.draw.rect(board, (0, 255, 12), [char_pos_x, char_pos_y, 33, 33], 0)
     
     ### Render ###
 
