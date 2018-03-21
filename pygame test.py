@@ -5,9 +5,9 @@ clock = pygame.time.Clock()
 
 pygame.init()
 
-x_size = 300
+x_size = 1000
 
-y_size = 330
+y_size = 1000
 
 size = (x_size, y_size)
 
@@ -41,11 +41,15 @@ right_face = 34 + 33
 bottom_face = 33 + 20
 left_face = 1 + 33
 
-char_pos_x = 0
-char_pos_y = 0
+char_pos_x = 150
+char_pos_y = 150
 
-char_move_x = 0
-char_move_y = 0
+char_move_up = False
+char_move_down = True
+char_move_left = False
+char_move_right = False
+
+
 
 while True:
 
@@ -58,26 +62,42 @@ while True:
 
         elif event.type == KEYDOWN:
 
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP and char_move_down == False:
                 print("User said up")
-                char_move_y=-3
+                char_move_up = True
+                char_move_down = False
+                char_move_left = False
+                char_move_right = False
 
-            elif event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_DOWN and char_move_up == False:
                 print("User said down")
-                char_move_y=3
+                char_move_down = True
+                char_move_left = False
+                char_move_right = False
+                char_move_up = False
 
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT and char_move_left == False:
                  print("User said right")
-                 char_move_x=3
+                 char_move_right = True
+                 char_move_down = False
+                 char_move_left = False
+                 char_move_up = False
 
-            elif event.key == pygame.K_LEFT:
+            elif event.key == pygame.K_LEFT and char_move_right == False:
                 print("User said left")
-                char_move_x=-3
+                char_move_left = True
+                char_move_down = False
+                char_move_right = False
+                char_move_up = False
 
-        elif event.type == KEYUP:
-
-            char_move_x=0
-            char_move_y=0
+    if char_move_up == True:
+        char_pos_y -= 10
+    elif char_move_down == True:
+        char_pos_y += 10
+    elif char_move_left == True:
+        char_pos_x -= 10
+    elif char_move_right == True:
+        char_pos_x += 10
 
     ### Game logic ###
 
@@ -118,9 +138,6 @@ while True:
     hitbox_x = left_face
     hitbox_y = top_face
 
-    char_pos_x += char_move_x
-    char_pos_y += char_move_y
-
     ### Graphics ###
 
     board.fill((255,255,255))
@@ -146,13 +163,13 @@ while True:
 
     board.blit(bounce, (hitbox_x, hitbox_y))
 
-    pygame.draw.rect(board, (0, 255, 12), [char_pos_x, char_pos_y, 33, 33], 0)
+    pygame.draw.rect(board, (0, 255, 12), [char_pos_x, char_pos_y, 10, 10], 0)
     
     ### Render ###
 
     pygame.display.flip()
 
-    clock.tick(60)
+    clock.tick(10)
 
 pygame.quit()
 sys.exit()
