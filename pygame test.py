@@ -24,7 +24,7 @@ maze = pygame.image.load('James_maze.png')
 pygame.display.set_icon(bounce)
 
 
-# fps counter #
+# fps counter/mouse pos #
 
 y_origin = time.time()
 
@@ -81,17 +81,17 @@ while True:
 
     ### Game logic ###
 
-    # fps counter #
-    '''
+    # fps counter/mouse pos #
+
     x += 1
     y = time.time() - y_origin
     try:
         z = int(x/y)
     except ZeroDivisionError:
         z = 0
-    fps_text = font.render(str(z), True, (0, 255, 0))
-    fps_text_2 = font.render(str(z), True, (0, 200, 0))
-    '''
+    fps_text = font.render(str(pygame.mouse.get_pos()), True, (0, 255, 0))
+    fps_text_2 = font.render(str(pygame.mouse.get_pos()), True, (0, 200, 0))
+
     # bouncing thing #
 
     if top_face <= 0:
@@ -135,13 +135,13 @@ while True:
 
     board.blit(maze, (0, 0))
     
-    '''
+
     board.blit(fps_text_2, [2, -2])
 
     board.blit(fps_text_2, [4, -4])
 
     board.blit(fps_text, [3, -3])
-    '''
+
     #pygame.draw.rect(board,(0,255,127),[hitbox_x,hitbox_y,33,33],0)
 
     board.blit(bounce, (hitbox_x, hitbox_y))
