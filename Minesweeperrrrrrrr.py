@@ -19,4 +19,3 @@ bounce = pygame.image.load('windowz.png')
 
 maze = pygame.image.load('James_maze.png')
 
-pygame.display.set_icon(bounce)
