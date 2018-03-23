@@ -17,10 +17,13 @@ def generate_board ( x_length , y_length , origin_x , origin_y , mine_ratio ):
 
     mine_count = int( x_length * y_length * mine_ratio )
 
-    for x in range(x_length):
+    for x in range(x_length+2):
         minefield.append([])
-        for y in range(y_length):
-            minefield[x].append(empty)   #add boarder
+        for y in range(y_length+2):
+            if x == 0 or x == (x_length+1) or y == 0 or y == (y_length+1):
+                minefield[x].append(boarder)
+            else:
+                minefield[x].append(empty)
 
     for mines in range(mine_count):
         mine_pos_x=random.randint(0,(x_length-1))
