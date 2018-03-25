@@ -15,7 +15,11 @@ pygame.display.set_caption("Minesweeper")
 
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
 
-bounce = pygame.image.load('windowz.png')
+logo = pygame.image.load('katte.png')
 
 maze = pygame.image.load('James_maze.png')
 
+<<<<<<< HEAD
+=======
+pygame.display.set_icon(logo)
+>>>>>>> 8e3c981df09e543c2f409ae9642429473748450f
