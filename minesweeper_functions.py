@@ -40,23 +40,20 @@ def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
             elif minefield[mine_pos_x][mine_pos_y] == mine:
                 reroll = True  # reroll for overlap
                 
-        for x_modifier in range(-1, 2):
-            for y_modifier in range(-1, 2):
-                if minefield[mine_pos_x + x_modifier][mine_pos_y + y_modifier] != mine:
-                    minefield[mine_pos_x + x_modifier][mine_pos_y + y_modifier] += 1
+        for modifier_x in range(-1, 2):
+            for modifier_y in range(-1, 2):
+                if minefield[mine_pos_x + modifier_x][mine_pos_y + modifier_y] != mine:
+                    minefield[mine_pos_x + modifier_x][mine_pos_y + modifier_y] += 1
         minefield[mine_pos_x][mine_pos_y] = mine
 
-    # strips the border, only useful for preventing index errors
+    # strips the border which is only useful for preventing index errors
     minefield.pop(0)
     minefield.pop(-1)
-    for x in range (0, length_y):
+    for x in range(0, length_y):
         minefield[x].pop(0)
         minefield[x].pop(-1)
 
-
 generate_board(20, 20, 1, 1, 0.1)
-print(minefield)
-
 
 def print_board():
     for l in minefield:
@@ -66,6 +63,3 @@ def print_board():
             else:
                 print(e, end=" ")
         print()
-
-
-print_board()
