@@ -1,17 +1,16 @@
 import random
+import pygbutton
+
+# unicode characters
+
+mine = "*"
 
 
+# outputs a field with generated mines and accompanying number squares
 def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
-    global minefield
-    global empty
-    global mine
-    global border
-    
     minefield = []
 
     empty = 0
-
-    mine = 'mine.png'
 
     border = 9  # could any int, idk. maybe will be changed to 0 if memory is an issue
 
@@ -53,13 +52,70 @@ def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
         minefield[x].pop(0)
         minefield[x].pop(-1)
 
-generate_board(20, 20, 1, 1, 0.1)
+    return minefield
 
-def print_board():
+
+def print_board(minefield):
     for l in minefield:
         for e in l:
-            if e == 'mine.png':
+            if e == mine:
                 print("*", end=" ")
             else:
                 print(e, end=" ")
         print()
+
+
+# buttons and clicked grid
+# outputs a list with a field of buttons as element 0 and list with a field of booleans as element 1
+def generate_buttons(squares_x, squares_y, square_size):
+    field_buttons = []
+    clicked_buttons = []
+    for x in range(0, squares_x):
+        button_row = []
+        clicked_button_row = []
+        for y in range(0, squares_y):
+            button_row.append(pygbutton.PygButton((x * square_size, y * square_size, square_size, square_size), ""))
+            clicked_button_row.append(False)
+        field_buttons.append(button_row)
+        clicked_buttons.append(clicked_button_row)
+    return [field_buttons, clicked_buttons]
+
+
+'''
+# trash, fix as soon as possible
+def big_clear(x, y, minefield, clicked_buttons):
+    operation_list = [(x, y)]
+    checked_list = []
+    while len(operation_list) > 0:
+        if minefield[operation_list[0][1]][operation_list[0][0]] == 0 and operation_list[0] not in checked_list:
+            clicked_buttons[operation_list[0][1]][operation_list[0][0]] = True
+            checked_list.append(operation_list[0])
+            for modifier_x in range(-1, 2):
+                for modifier_y in range(-1, 2):
+                    if minefield[operation_list[0][1] + modifier_y][operation_list[0][0] + modifier_x] == 0 and operation_list[0] not in checked_list:
+                        operation_list.append(operation_list[0][0] + modifier_x, operation_list[0][1] + modifier_y)
+                        checked_list.append(operation_list[0])
+                        clicked_buttons[operation_list[0][1] + modifier_y][operation_list[0][0] + modifier_x]
+                operation_list.pop(0)
+'''
+
+# let's try again
+
+'''
+def big_clear(x, y, length_x, length_y, minefield, clicked_buttons):
+    op_list = [(x, y)]  # operation list, list of squares to check for zeroes
+    checked_list = []  # list of squares already checked
+    while len(op_list) > 0:
+        inter_y = op_list[0][1]  # intermediate y, intermediate value for less typing
+        inter_x = op_list[0][0]  # intermediate x, same as above
+        if minefield[inter_y][inter_x] == 0:
+            clicked_buttons[inter_y][inter_x] = True
+            checked_list.append(op_list[0])
+        for modifier_x in range(-1, 2):
+            for modifier_y in range(-1, 2):
+                if 0 <= (inter_y and inter_y <= length_y and inter_x >= 0 and inter_x <= length_x:
+                    if minefield[inter_y + modifier_y][inter_x + modifier_x] == 0 and (inter_x + modifier_x, inter_y + modifier_y) not in checked_list:
+                        op_list.append((inter_x + modifier_x, inter_y + modifier_y))
+        op_list.pop(0)
+'''
+# I have failed twice
