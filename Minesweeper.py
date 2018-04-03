@@ -12,21 +12,21 @@ pygame.init()
 square_size = 16  # length of side of square in pixels
 
 print("Choose board settings (press enter without an input for default)")
-squares_x = (input("Number of squares in x axis: "))
-squares_y = (input("Number of squares in y axis: "))
+squares_y = (input("Number of squares in x axis: "))
+squares_x = (input("Number of squares in y axis: "))
 mine_ratio = (input("Ratio of mines to squares: "))
 
-if squares_x == "" and squares_y == "" and mine_ratio == "":
-    squares_x = 20
+if squares_y == "" and squares_x == "" and mine_ratio == "":
     squares_y = 20
+    squares_x = 20
     mine_ratio = 0.1
 else:
-    squares_x = int(squares_x)
     squares_y = int(squares_y)
-    mine_ratio = int(mine_ratio)
+    squares_x = int(squares_x)
+    mine_ratio = float(mine_ratio)
 
 
-window_size = (squares_x * square_size, squares_y * square_size)
+window_size = (squares_y * square_size, squares_x * square_size)
 
 window = pygame.display.set_mode(window_size)
 
@@ -46,24 +46,21 @@ picture_list.append(pygame.image.load("mine.png"))
 
 print(picture_list)
 
-'''
-<<<<<<< HEAD
-=======
-pygame.display.set_icon(logo)
->>>>>>> 8e3c981df09e543c2f409ae9642429473748450f
-'''
+#pygame.display.set_icon(logo)
 
-minefield = generate_board(squares_x, squares_y, 0, 0, 0.1)
+minefield = generate_board(squares_y, squares_x, 0, 0, mine_ratio)
 
 print_board(minefield)
 
-generated_buttons = generate_buttons(squares_x, squares_y, square_size)
+generated_buttons = generate_buttons(squares_y, squares_x, square_size)
 field_buttons = generated_buttons[0]
 clicked_buttons = generated_buttons[1]
 
 squares_clicked = 0
 
 game_state = None
+
+first_click = False
 
 # main game loop
 while True:
@@ -85,7 +82,7 @@ while True:
                     else:
                         # win check
                         squares_clicked += 1
-                        if squares_clicked == (squares_x * squares_y) * (1 - mine_ratio):
+                        if squares_clicked == (squares_y * squares_x) * (1 - mine_ratio):
                             game_state = "win"  # won game, all squares open
                     #pygame.quit()
                     #sys.exit()
@@ -95,8 +92,6 @@ while True:
     if game_state is not None:
         pass
 
-
-
     for x in range(0, squares_x):
         for y in range(0, squares_y):
             if clicked_buttons[y][x] is False:
@@ -105,7 +100,7 @@ while True:
                 if isinstance(minefield[y][x], int):
                     window.blit(picture_list[minefield[y][x]], (y * square_size, x * square_size))
                     if minefield[y][x] == 0:
-                        #big_clear(x, y, squares_x, squares_y, minefield, clicked_buttons)
+                        #big_clear(x, y, squares_y, squares_x, minefield, clicked_buttons)
                         pass
                 elif minefield[y][x] == mine:
                     window.blit(picture_list[9], (y * square_size, x * square_size))

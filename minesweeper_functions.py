@@ -48,7 +48,7 @@ def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
     # strips the border which is only useful for preventing index errors
     minefield.pop(0)
     minefield.pop(-1)
-    for x in range(0, length_y):
+    for x in range(0, length_x):
         minefield[x].pop(0)
         minefield[x].pop(-1)
 
