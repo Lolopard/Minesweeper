@@ -46,11 +46,13 @@ def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
         minefield[mine_pos_x][mine_pos_y] = mine
 
     # strips the border which is only useful for preventing index errors
+    
     minefield.pop(0)
     minefield.pop(-1)
     for x in range(0, length_x):
         minefield[x].pop(0)
         minefield[x].pop(-1)
+        
 
     return minefield
 
@@ -121,20 +123,27 @@ def big_clear(x, y, length_x, length_y, minefield, clicked_buttons):
 # I have failed twice
 
 # let's try with Jimbob
+# it kinda doesnt work
+# I dont know why
 
 def big_clear(x, y, minefield, clicked_buttons):
     operation = [[x, y]]
     while len(operation) > 0:
-            for modifier_x in range(-1, 2):
-                for modifier_y in range(-1, 2):
-                    if minefield[operation[0][0] + modifier_x][operation[0][1] + modifier_y] == 0 and clicked_buttons[operation[0][0] + modifier_x][operation[0][1] + modifier_y]is False:
-                        new_x = x + modifier_x
-                        new_y = y + modifier_y
-                        operation.append([new_x, new_y])
-                        clicked_buttons[new_x][new_y] = True
-                    else:
-                        clicked_buttons[new_x][new_y] = True
-                    operation.pop(0)
+        #print("current op: ",operation[0])
+        #print(operation)
+        for modifier_x in range(-1, 2):
+            for modifier_y in range(-1, 2):
+                    new_x = operation[0][0] + modifier_x
+                    new_y = operation[0][1] + modifier_y
+                    clicked_buttons[new_x][new_y] = True
+                    #print("cleared")
+                    for ext_modifier_x in range(-1, 2):
+                        for ext_modifier_y in range(-1, 2):
+                            if clicked_buttons[new_x + ext_modifier_x][new_y + ext_modifier_y] is False and minefield[new_x][new_y] == 0:
+                                if [new_x, new_y] not in operation:
+                                    operation.append([new_x, new_y])
+                                    #print("new tile found")
+        operation.pop(0)
                     
                     
             
