@@ -119,3 +119,27 @@ def big_clear(x, y, length_x, length_y, minefield, clicked_buttons):
         op_list.pop(0)
 '''
 # I have failed twice
+
+# let's try with Jimbob
+
+def big_clear(x, y, minefield, clicked_buttons):
+    operation = [[x, y]]
+    while len(operation) > 0:
+            for modifier_x in range(-1, 2):
+                for modifier_y in range(-1, 2):
+                    if minefield[operation[0][0] + modifier_x][operation[0][1] + modifier_y] == 0 and clicked_buttons[operation[0][0] + modifier_x][operation[0][1] + modifier_y]is False:
+                        new_x = x + modifier_x
+                        new_y = y + modifier_y
+                        operation.append([new_x, new_y])
+                        clicked_buttons[new_x][new_y] = True
+                    else:
+                        clicked_buttons[new_x][new_y] = True
+                    operation.pop(0)
+                    
+                    
+            
+    
+
+
+
+
