@@ -135,14 +135,20 @@ def big_clear(x, y, minefield, clicked_buttons):
             for modifier_y in range(-1, 2):
                     new_x = operation[0][0] + modifier_x
                     new_y = operation[0][1] + modifier_y
-                    clicked_buttons[new_x][new_y] = True
+                    try:
+                        clicked_buttons[new_y][new_x] = True
+                    except IndexError:
+                        pass
                     #print("cleared")
                     for ext_modifier_x in range(-1, 2):
                         for ext_modifier_y in range(-1, 2):
-                            if clicked_buttons[new_x + ext_modifier_x][new_y + ext_modifier_y] is False and minefield[new_x][new_y] == 0:
-                                if [new_x, new_y] not in operation:
-                                    operation.append([new_x, new_y])
-                                    #print("new tile found")
+                            try:
+                                if clicked_buttons[new_y + ext_modifier_y][new_x + ext_modifier_x] is False and minefield[new_y][new_x] == 0:
+                                    if [new_x, new_y] not in operation:
+                                        operation.append([new_x, new_y])
+                                        #print("new tile found")
+                            except IndexError:
+                                pass
         operation.pop(0)
                     
                     
