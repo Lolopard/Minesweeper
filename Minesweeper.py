@@ -34,7 +34,7 @@ pygame.display.set_caption("Minesweeper")
 
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
 
-#logo = pygame.image.load('katte.png')
+logo = pygame.image.load('icon.png')
 
 picture = pygame.image.load("goface.jpg")
 
@@ -46,7 +46,7 @@ picture_list.append(pygame.image.load("mine.png"))
 
 print(picture_list)
 
-#pygame.display.set_icon(logo)
+pygame.display.set_icon(logo)
 
 minefield = generate_board(squares_y, squares_x, 0, 0, mine_ratio)
 
