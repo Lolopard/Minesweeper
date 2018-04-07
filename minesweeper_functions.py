@@ -126,7 +126,7 @@ def big_clear(x, y, length_x, length_y, minefield, clicked_buttons):
 # it kinda doesnt work
 # I dont know why
 
-def big_clear(x, y, minefield, clicked_buttons):
+def big_clear(x, y, minefield, clicked_buttons, length_x, length_y):
     operation = [[x, y]]
     while len(operation) > 0:
         #print("current op: ",operation[0])
@@ -135,20 +135,20 @@ def big_clear(x, y, minefield, clicked_buttons):
             for modifier_y in range(-1, 2):
                     new_x = operation[0][0] + modifier_x
                     new_y = operation[0][1] + modifier_y
-                    try:
+                    if new_x < length_x and new_y < length_y and new_x > -1 and new_y > -1:
                         clicked_buttons[new_y][new_x] = True
-                    except IndexError:
+                        #print("cleared")
+                        for ext_modifier_x in range(-1, 2):
+                            for ext_modifier_y in range(-1, 2):
+                                if (new_x + ext_modifier_x) < length_x and (new_y + ext_modifier_y) < length_y and (new_x + ext_modifier_x) > -1 and (new_y + ext_modifier_y) > -1:
+                                    if clicked_buttons[new_y + ext_modifier_y][new_x + ext_modifier_x] is False and minefield[new_y][new_x] == 0:
+                                        if [new_x, new_y] not in operation:
+                                            operation.append([new_x, new_y])
+                                            #print("new tile found")
+                                else:
+                                    pass
+                    else:
                         pass
-                    #print("cleared")
-                    for ext_modifier_x in range(-1, 2):
-                        for ext_modifier_y in range(-1, 2):
-                            try:
-                                if clicked_buttons[new_y + ext_modifier_y][new_x + ext_modifier_x] is False and minefield[new_y][new_x] == 0:
-                                    if [new_x, new_y] not in operation:
-                                        operation.append([new_x, new_y])
-                                        #print("new tile found")
-                            except IndexError:
-                                pass
         operation.pop(0)
                     
                     

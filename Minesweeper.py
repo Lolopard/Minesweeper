@@ -100,7 +100,7 @@ while True:
                 if isinstance(minefield[y][x], int):
                     window.blit(picture_list[minefield[y][x]], (y * square_size, x * square_size))
                     if minefield[y][x] == 0:
-                        big_clear(x, y, minefield, clicked_buttons)
+                        big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
                         pass
                 elif minefield[y][x] == mine:
                     window.blit(picture_list[9], (y * square_size, x * square_size))
