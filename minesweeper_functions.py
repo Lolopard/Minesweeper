@@ -4,6 +4,7 @@ import pygbutton
 # unicode characters
 
 mine = "*"
+mine_blow = "#"
 
 
 # outputs a field with generated mines and accompanying number squares
@@ -146,8 +147,23 @@ def big_clear(x, y, minefield, clicked_buttons, length_x, length_y):
                     else:
                         pass
         operation.pop(0)
-                    
-                    
+
+def loss_clear(loss_x, loss_y, minefield, clicked_buttons, length_x, length_y):
+    for x in range(0, (length_x)):
+        for y in range(0, (length_y)):
+            if minefield[y][x] == mine:
+                clicked_buttons[y][x] = True
+    minefield[loss_y][loss_x] = mine_blow
+    # Add red crosses over tiles that were false flagged
+    # keep flags that are over bombs (dont show bombs)
+
+def win_check(minefield, clicked_buttons, length_x, length_y):
+    for x in range(0, (length_x)):
+        for y in range(0, (length_y)):
+            if clicked_buttons[y][x] is False and minefield[y][x] != mine:
+                return False
+    return True
+
             
     
 
