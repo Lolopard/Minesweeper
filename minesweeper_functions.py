@@ -57,6 +57,15 @@ def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
 
     return minefield
 
+def generate_blank(length_x, length_y):
+    minefield = []
+    
+    for x in range(length_x + 2):
+        minefield.append([])
+        for y in range(length_y + 2):
+            minefield[x].append(mine)
+
+    return minefield
 
 def print_board(minefield):
     for l in minefield:

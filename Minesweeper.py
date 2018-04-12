@@ -10,7 +10,7 @@ clock = pygame.time.Clock()
 pygame.init()
 
 square_size = 16  # length of side of square in pixels
-
+# Stuff to put into options menu
 print("Choose board settings (press enter without an input for default)")
 squares_y = (input("Number of squares in x axis: "))
 squares_x = (input("Number of squares in y axis: "))
@@ -29,7 +29,7 @@ else:
 window_size = (squares_y * square_size, squares_x * square_size)
 
 window = pygame.display.set_mode(window_size)
-
+# To here^
 pygame.display.set_caption("Minesweeper")
 
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
@@ -46,20 +46,25 @@ picture_list.append(pygame.image.load("mine_blow.png"))
 
 pygame.display.set_icon(logo)
 
-minefield = generate_board(squares_y, squares_x, 0, 0, mine_ratio)
-# Needs to be moved into the loop for the first click 
-
-print_board(minefield)
+minefield = generate_blank(squares_y, squares_x)
+# Placeholder field until the real is generated ( So the graphics work )
 
 generated_buttons = generate_buttons(squares_y, squares_x, square_size)
 field_buttons = generated_buttons[0]
 clicked_buttons = generated_buttons[1]
 
-squares_clicked = 0 # Dont need this anymore
-
 game_state = None
 
 first_click = False
+'''
+# OPTIONS MENU
+while True:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            print("User asked to quit")
+            pygame.quit()
+            sys.exit()
+            '''
 
 # main game loop
 while True:
@@ -71,36 +76,32 @@ while True:
         if game_state is None: # If you win or lose, you can't play
             for x in range(0, squares_x):
                 for y in range(0, squares_y):
-                    if 'click' in field_buttons[y][x].handleEvent(event) and clicked_buttons[y][x] is False:
-                        clicked_buttons[y][x] = True
-                        if minefield[y][x] == mine:
-                            game_state = False
-                            print("You lost")
-                            loss_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
-                        elif minefield[y][x] == 0:
-                            big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)    
-                            if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
-                                game_state = True
-                                print("You won")
-                        else:
-                            if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
-                                game_state = True
-                                print("You won")
-                        '''
-                        if minefield[y][x] == mine:
-                            game_state = "loss"  # lost game, all squares open
-                        elif minefield[y][x] == 0:
-                            # big_clear + win check
-                            pass
-                        else:
-                            # win check
-                            squares_clicked += 1
-                            if squares_clicked == (squares_y * squares_x) * (1 - mine_ratio):
-                                game_state = "win"  # won game, all squares open
-                        #pygame.quit()
-                        #sys.exit()
-                        '''
-                        pass
+                    if first_click is True:
+                        if 'click' in field_buttons[y][x].handleEvent(event) and clicked_buttons[y][x] is False:
+                            clicked_buttons[y][x] = True
+                            if minefield[y][x] == mine:
+                                game_state = False
+                                print("You lost")
+                                loss_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
+                            elif minefield[y][x] == 0:
+                                big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)    
+                                if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
+                                    game_state = True
+                                    print("You won")
+                            else:
+                                if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
+                                    game_state = True
+                                    print("You won")
+                    else:
+                        if 'click' in field_buttons[y][x].handleEvent(event):
+                            first_click = True
+                            minefield = generate_board(squares_y, squares_x, x, y, mine_ratio)
+                            clicked_buttons[y][x] = True
+                            if minefield[y][x] == 0:
+                                big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)    
+                                if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
+                                    game_state = True
+                                    print("You won")
 
     if game_state is not None:
         pass
