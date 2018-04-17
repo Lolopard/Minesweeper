@@ -26,7 +26,7 @@ else:
     mine_ratio = float(mine_ratio)
 
 
-window_size = (squares_y * square_size, squares_x * square_size)
+window_size = (squares_y * square_size, squares_x * square_size + 100)
 
 window = pygame.display.set_mode(window_size)
 # To here^
@@ -112,11 +112,11 @@ while True:
                 field_buttons[y][x].draw(window)
             else:
                 if isinstance(minefield[y][x], int):
-                    window.blit(picture_list[minefield[y][x]], (y * square_size, x * square_size))
+                    window.blit(picture_list[minefield[y][x]], (y * square_size, x * square_size + 100))
                 elif minefield[y][x] == mine:
-                    window.blit(picture_list[9], (y * square_size, x * square_size))
+                    window.blit(picture_list[9], (y * square_size, x * square_size + 100))
                 elif minefield[y][x] == mine_blow:
-                    window.blit(picture_list[10], (y * square_size, x * square_size))
+                    window.blit(picture_list[10], (y * square_size, x * square_size + 100))
     pygame.display.flip()
 
     
