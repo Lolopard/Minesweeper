@@ -86,7 +86,7 @@ def generate_buttons(squares_x, squares_y, square_size):
         button_row = []
         clicked_button_row = []
         for y in range(0, squares_y):
-            button_row.append(pygbutton.PygButton((x * square_size, y * square_size, square_size, square_size), ""))
+            button_row.append(pygbutton.PygButton((x * square_size, y * square_size + 100, square_size, square_size), ""))
             clicked_button_row.append(False)
         field_buttons.append(button_row)
         clicked_buttons.append(clicked_button_row)
