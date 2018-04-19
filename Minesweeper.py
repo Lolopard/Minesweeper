@@ -26,7 +26,7 @@ else:
     mine_ratio = float(mine_ratio)
 
 
-window_size = (squares_y * square_size, squares_x * square_size + 100)
+window_size = (squares_y * square_size, squares_x * square_size + 48)
 
 window = pygame.display.set_mode(window_size)
 # To here^
@@ -35,6 +35,10 @@ pygame.display.set_caption("Minesweeper")
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
 
 logo = pygame.image.load('icon.png')
+
+face = pygame.image.load("face.png")
+face_lose = pygame.image.load("face_lose.png")
+face_win = pygame.image.load("face_win.png")
 
 picture_list = []
 for x in range(0, 9):
@@ -46,12 +50,16 @@ picture_list.append(pygame.image.load("mine_blow.png"))
 
 pygame.display.set_icon(logo)
 
+window.fill([212, 208, 200])
+
 minefield = generate_blank(squares_y, squares_x)
 # Placeholder field until the real is generated ( So the graphics work )
 
 generated_buttons = generate_buttons(squares_y, squares_x, square_size)
 field_buttons = generated_buttons[0]
 clicked_buttons = generated_buttons[1]
+
+restart_button = pygbutton.PygButton((window_size[0]/2 - 16, 8, 32, 32), "")
 
 game_state = None
 
@@ -112,11 +120,11 @@ while True:
                 field_buttons[y][x].draw(window)
             else:
                 if isinstance(minefield[y][x], int):
-                    window.blit(picture_list[minefield[y][x]], (y * square_size, x * square_size + 100))
+                    window.blit(picture_list[minefield[y][x]], (y * square_size, x * square_size + 48))
                 elif minefield[y][x] == mine:
-                    window.blit(picture_list[9], (y * square_size, x * square_size + 100))
+                    window.blit(picture_list[9], (y * square_size, x * square_size + 48))
                 elif minefield[y][x] == mine_blow:
-                    window.blit(picture_list[10], (y * square_size, x * square_size + 100))
+                    window.blit(picture_list[10], (y * square_size, x * square_size + 48))
+    restart_button.draw(window)
+    window.blit(face, (window_size[0]/2 - 16, 8))
     pygame.display.flip()
-
-    
