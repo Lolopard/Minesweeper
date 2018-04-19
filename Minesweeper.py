@@ -67,7 +67,7 @@ picture_list.append(pygame.image.load("mine_blow.png"))
 
 pygame.display.set_icon(logo)
 
-window.fill([212, 208, 200])
+window.fill([192, 192, 192])
 
 minefield = generate_blank(squares_y, squares_x)
 # Placeholder field until the real is generated ( So the graphics work )
@@ -78,35 +78,37 @@ clicked_buttons = generated_buttons[1]
 
 restart_button = pygbutton.PygButton((window_size[0]/2 - 16, 8, 32, 32), "")
 
-game_state = None
+game_state = "playing"
 
 first_click = False
 
 # main game loop
 while True:
     for event in pygame.event.get():
+        restart_button.draw(window)
         if event.type == QUIT:
             print("User asked to quit")
             pygame.quit()
             sys.exit()
-        if game_state is None: # If you win or lose, you can't play
+        if game_state == "playing": # If you win or lose, you can't play
+            window.blit(face, (window_size[0] / 2 - 16, 8))
             for x in range(0, squares_x):
                 for y in range(0, squares_y):
                     if first_click is True:
                         if 'click' in field_buttons[y][x].handleEvent(event) and clicked_buttons[y][x] is False:
                             clicked_buttons[y][x] = True
                             if minefield[y][x] == mine:
-                                game_state = False
+                                game_state = "lost"
                                 print("You lost")
                                 loss_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
                             elif minefield[y][x] == 0:
                                 big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)    
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
-                                    game_state = True
+                                    game_state = "won"
                                     print("You won")
                             else:
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
-                                    game_state = True
+                                    game_state = "won"
                                     print("You won")
                     else:
                         if 'click' in field_buttons[y][x].handleEvent(event):
@@ -116,11 +118,22 @@ while True:
                             if minefield[y][x] == 0:
                                 big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)    
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
-                                    game_state = True
+                                    game_state = "won"
                                     print("You won")
 
-    if game_state is not None:
-        pass
+        elif game_state == "lost":
+            window.blit(face_lose, (window_size[0] / 2 - 16, 8))
+
+        elif game_state == "won":
+            window.blit(face_win, (window_size[0] / 2 - 16, 8))
+
+        if "click" in restart_button.handleEvent(event):
+            generated_buttons = generate_buttons(squares_y, squares_x, square_size)
+            field_buttons = generated_buttons[0]
+            clicked_buttons = generated_buttons[1]
+            minefield = generate_board(squares_y, squares_x, x, y, mine_ratio)
+            first_click = True
+            game_state = "playing"
             
     for x in range(0, squares_x):
         for y in range(0, squares_y):
@@ -133,6 +146,4 @@ while True:
                     window.blit(picture_list[9], (y * square_size, x * square_size + 48))
                 elif minefield[y][x] == mine_blow:
                     window.blit(picture_list[10], (y * square_size, x * square_size + 48))
-    restart_button.draw(window)
-    window.blit(face, (window_size[0]/2 - 16, 8))
     pygame.display.flip()
