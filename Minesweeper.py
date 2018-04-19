@@ -10,26 +10,7 @@ clock = pygame.time.Clock()
 pygame.init()
 
 square_size = 16  # length of side of square in pixels
-# Stuff to put into options menu
-print("Choose board settings (press enter without an input for default)")
-squares_y = (input("Number of squares in x axis: "))
-squares_x = (input("Number of squares in y axis: "))
-mine_ratio = (input("Ratio of mines to squares: "))
 
-if squares_y == "" and squares_x == "" and mine_ratio == "":
-    squares_y = 20
-    squares_x = 20
-    mine_ratio = 0.1
-else:
-    squares_y = int(squares_y)
-    squares_x = int(squares_x)
-    mine_ratio = float(mine_ratio)
-
-
-window_size = (squares_y * square_size, squares_x * square_size + 100)
-
-window = pygame.display.set_mode(window_size)
-# To here^
 pygame.display.set_caption("Minesweeper")
 
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
@@ -56,7 +37,7 @@ clicked_buttons = generated_buttons[1]
 game_state = None
 
 first_click = False
-'''
+
 # OPTIONS MENU
 while True:
     for event in pygame.event.get():
@@ -64,7 +45,33 @@ while True:
             print("User asked to quit")
             pygame.quit()
             sys.exit()
-            '''
+        if 'click' in easy_button.handleEvent(event):
+            pass
+        if 'click' in medium_button.handleEvent(event):
+            pass
+        if 'click' in hard_button.handleEvent(event):
+            pass
+            
+# Stuff to put into options menu
+print("Choose board settings (press enter without an input for default)")
+squares_y = (input("Number of squares in x axis: "))
+squares_x = (input("Number of squares in y axis: "))
+mine_ratio = (input("Ratio of mines to squares: "))
+
+if squares_y == "" and squares_x == "" and mine_ratio == "":
+    squares_y = 20
+    squares_x = 20
+    mine_ratio = 0.1
+else:
+    squares_y = int(squares_y)
+    squares_x = int(squares_x)
+    mine_ratio = float(mine_ratio)
+
+
+window_size = (squares_y * square_size, squares_x * square_size + 100)
+
+window = pygame.display.set_mode(window_size)
+# To here^
 
 # main game loop
 while True:
