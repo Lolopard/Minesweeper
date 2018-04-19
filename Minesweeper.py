@@ -11,6 +11,8 @@ pygame.init()
 
 square_size = 16  # length of side of square in pixels
 
+<<<<<<< HEAD
+>>>>>>> 6a1c8a745f48bd9be25b727eafc8920fdbc94d7e
 pygame.display.set_caption("Minesweeper")
 
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
@@ -119,11 +121,6 @@ while True:
                 field_buttons[y][x].draw(window)
             else:
                 if isinstance(minefield[y][x], int):
-                    window.blit(picture_list[minefield[y][x]], (y * square_size, x * square_size + 100))
                 elif minefield[y][x] == mine:
-                    window.blit(picture_list[9], (y * square_size, x * square_size + 100))
                 elif minefield[y][x] == mine_blow:
-                    window.blit(picture_list[10], (y * square_size, x * square_size + 100))
     pygame.display.flip()
-
-    
