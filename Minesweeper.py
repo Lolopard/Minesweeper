@@ -11,23 +11,6 @@ pygame.init()
 
 square_size = 16  # length of side of square in pixels
 
-<<<<<<< HEAD
-=======
-if squares_y == "" and squares_x == "" and mine_ratio == "":
-    squares_y = 20
-    squares_x = 20
-    mine_ratio = 0.1
-else:
-    squares_y = int(squares_y)
-    squares_x = int(squares_x)
-    mine_ratio = float(mine_ratio)
-
-
-window_size = (squares_y * square_size, squares_x * square_size + 48)
-
-window = pygame.display.set_mode(window_size)
-# To here^
->>>>>>> 6a1c8a745f48bd9be25b727eafc8920fdbc94d7e
 pygame.display.set_caption("Minesweeper")
 
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
