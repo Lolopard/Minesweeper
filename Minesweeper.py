@@ -1,7 +1,6 @@
 import pygame
 import sys
 import time
-import pygbutton
 from pygame.locals import *
 from minesweeper_functions import *
 

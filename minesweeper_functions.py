@@ -100,7 +100,7 @@ def generate_buttons(squares_x, squares_y, square_size):
 # I dont know why
 
 def big_clear(x, y, minefield, clicked_buttons, length_x, length_y):
-    operation = [[x, y]]
+    operation = [(x, y)]
     while len(operation) > 0:
         for modifier_x in range(-1, 2):
             for modifier_y in range(-1, 2):
@@ -110,15 +110,14 @@ def big_clear(x, y, minefield, clicked_buttons, length_x, length_y):
                         clicked_buttons[new_y][new_x] = True
                         for ext_modifier_x in range(-1, 2):
                             for ext_modifier_y in range(-1, 2):
-                                if (new_x + ext_modifier_x) < length_x and (new_y + ext_modifier_y) < length_y and (new_x + ext_modifier_x) > -1 and (new_y + ext_modifier_y) > -1:
-                                    if clicked_buttons[new_y + ext_modifier_y][new_x + ext_modifier_x] is False and minefield[new_y][new_x] == 0:
+                                if -1 < (new_x + ext_modifier_x) < length_x and -1 < (new_y + ext_modifier_y) < length_y:
+                                    if clicked_buttons[new_y + ext_modifier_y][new_x + ext_modifier_x] is False \
+                                     and minefield[new_y][new_x] == 0:
                                         if [new_x, new_y] not in operation:
                                             operation.append([new_x, new_y])
-                                else:
-                                    pass
-                    else:
-                        pass
+
         operation.pop(0)
+
 
 def loss_clear(loss_x, loss_y, minefield, clicked_buttons, length_x, length_y):
     for x in range(0, (length_x)):
@@ -129,6 +128,7 @@ def loss_clear(loss_x, loss_y, minefield, clicked_buttons, length_x, length_y):
     # Add red crosses over tiles that were false flagged
     # keep flags that are over bombs (dont show bombs)
 
+
 def win_check(minefield, clicked_buttons, length_x, length_y):
     for x in range(0, (length_x)):
         for y in range(0, (length_y)):
@@ -136,14 +136,14 @@ def win_check(minefield, clicked_buttons, length_x, length_y):
                 return False
     return True
 
-def generate_option_buttons(coord_x, coord_y):
-    option_buttons = []
-    option_buttons.append(pygbutton.PygButton((coord_x, coord_y, 60, 60), "Easy"))
-    option_buttons.append(pygbutton.PygButton((coord_x + 80, coord_y, 60, 60), "Medium"))
-    option_buttons.append(pygbutton.PygButton((coord_x + 140, coord_y, 60, 60), "Hard"))
-    option_buttons.append(pygbutton.PygButton((coord_x, coord_y + 80, 220, 60), "Advanced Settings"))
-    
-    return option_buttons
+
+option_buttons = [
+    pygbutton.PygButton((coord_x, coord_y, 60, 60), "Easy"),
+    pygbutton.PygButton((coord_x + 80, coord_y, 60, 60), "Medium"),
+    pygbutton.PygButton((coord_x + 140, coord_y, 60, 60), "Hard"),
+    pygbutton.PygButton((coord_x, coord_y + 80, 220, 60), "Advanced Settings")
+]
+
     
 
 
