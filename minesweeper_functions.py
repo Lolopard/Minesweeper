@@ -141,9 +141,16 @@ option_buttons = [
     pygbutton.PygButton((50, 50, 60, 60), "Easy"),
     pygbutton.PygButton((50 + 80, 50, 60, 60), "Medium"),
     pygbutton.PygButton((50 + 160, 50, 60, 60), "Hard"),
-    pygbutton.PygButton((50, 50 + 80, 220, 60), "Advanced Settings")
+    pygbutton.PygButton((50, 50 + 80, 220, 60), "Advanced"),
+    pygbutton.PygButton((50, 50 + 80, 220, 60), "Go!")
 ]
 
+adv_option_buttons = [
+    pygbutton.PygButton((50 + 160, 50, 60, 60), "Basic"),
+    pygbutton.PygButton((50, 50 + 80, 220, 60), "Go!")
+]
+
+# gotta fix thos coords brotha
     
 
 
