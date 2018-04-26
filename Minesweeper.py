@@ -4,9 +4,15 @@ import time
 from pygame.locals import *
 from minesweeper_functions import *
 
+pygame.init()
+
 clock = pygame.time.Clock()
 
-pygame.init()
+window = pygame.display.set_mode([320, 240])
+
+window.fill([192, 192, 192])
+
+pygame.display.set_caption("Launch Options")
 '''
 # OPTIONS MENU
 while True:
@@ -15,17 +21,22 @@ while True:
             print("User asked to quit")
             pygame.quit()
             sys.exit()
-        if 'click' in easy_button.handleEvent(event):
+        if 'click' in option_buttons[0].handleEvent(event):
             pass
-        if 'click' in medium_button.handleEvent(event):
+        if 'click' in option_buttons[1].handleEvent(event):
             pass
-        if 'click' in hard_button.handleEvent(event):
+        if 'click' in option_buttons[2].handleEvent(event):
             pass
-            '''
-
+        if 'click' in option_buttons[3].handleEvent(event):
+            pass
+    for b in range(4):
+        option_buttons[b].draw(window)
+    pygame.display.flip()
+'''
 square_size = 16  # length of side of square in pixels
 
 # Stuff to put into options menu
+
 print("Choose board settings (press enter without an input for default)")
 squares_y = (input("Number of squares in x axis: "))
 squares_x = (input("Number of squares in y axis: "))
