@@ -7,12 +7,13 @@ from minesweeper_functions import *
 pygame.init()
 
 clock = pygame.time.Clock()
-
+'''
 window = pygame.display.set_mode([320, 240])
 
 window.fill([192, 192, 192])
 
 pygame.display.set_caption("Launch Options")
+'''
 '''
 # OPTIONS MENU
 while True:
