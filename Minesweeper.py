@@ -7,6 +7,9 @@ from minesweeper_functions import *
 pygame.init()
 
 clock = pygame.time.Clock()
+
+font = pygame.font.SysFont("Comic Sans MS", 12)
+
 '''
 window = pygame.display.set_mode([320, 240])
 
@@ -93,8 +96,14 @@ game_state = "playing"
 
 first_click = False
 
+time_start = time.clock()
+
+time_elapsed = 0
+
 # main game loop
 while True:
+    window.fill([192, 192, 192])
+    time_elapsed = round(time.clock() - time_start)
     for event in pygame.event.get():
         restart_button.draw(window)
         if event.type == QUIT:
@@ -145,6 +154,9 @@ while True:
             minefield = generate_board(squares_y, squares_x, x, y, mine_ratio)
             first_click = True
             game_state = "playing"
+
+    time_display = font.render(str(time_elapsed), 1, (0, 0, 0))
+    window.blit(time_display, (0, 0))
             
     for x in range(0, squares_x):
         for y in range(0, squares_y):
@@ -157,4 +169,5 @@ while True:
                     window.blit(picture_list[9], (y * square_size, x * square_size + 48))
                 elif minefield[y][x] == mine_blow:
                     window.blit(picture_list[10], (y * square_size, x * square_size + 48))
+    clock.tick(60)
     pygame.display.flip()
