@@ -11,32 +11,47 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont("Comic Sans MS", 12)
 
 '''
+
 window = pygame.display.set_mode([320, 240])
 
-window.fill([192, 192, 192])
-
 pygame.display.set_caption("Launch Options")
-'''
-'''
+
+pygame.display.set_icon(pygame.image.load('settingsicon.png'))
+
 # OPTIONS MENU
+
+adv = False
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             print("User asked to quit")
             pygame.quit()
             sys.exit()
-        if 'click' in option_buttons[0].handleEvent(event):
+        if 'click' in option_buttons[0].handleEvent(event) and adv is False:
             pass
-        if 'click' in option_buttons[1].handleEvent(event):
+        elif 'click' in option_buttons[1].handleEvent(event) and adv is False:
             pass
-        if 'click' in option_buttons[2].handleEvent(event):
+        elif 'click' in option_buttons[2].handleEvent(event) and adv is False:
             pass
-        if 'click' in option_buttons[3].handleEvent(event):
+        elif 'click' in option_buttons[3].handleEvent(event) and adv is False:
+            adv = True
+            custom = False
+        elif 'click' in adv_option_buttons[0].handleEvent(event) and adv is True:
+            adv = False
+        elif 'click' in adv_option_buttons[1].handleEvent(event) and adv is True and custom is True:
             pass
-    for b in range(4):
-        option_buttons[b].draw(window)
+    window.fill([192, 192, 192])
+    if adv is False:
+        for b in range(4):
+            option_buttons[b].draw(window)
+    else:
+        adv_option_buttons[0].draw(window)
+        if custom is True:
+            adv_option_buttons[1].draw(window)
     pygame.display.flip()
+
 '''
+
 square_size = 16  # length of side of square in pixels
 
 # Stuff to put into options menu

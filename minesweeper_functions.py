@@ -138,15 +138,15 @@ def win_check(minefield, clicked_buttons, length_x, length_y):
 
 
 option_buttons = [
-    pygbutton.PygButton((50, 50, 60, 60), "Easy"),
-    pygbutton.PygButton((50 + 80, 50, 60, 60), "Medium"),
-    pygbutton.PygButton((50 + 160, 50, 60, 60), "Hard"),
-    pygbutton.PygButton((50, 50 + 80, 220, 60), "Advanced")
+    pygbutton.PygButton((20, 125, 80, 80), "Easy"),
+    pygbutton.PygButton((40 + 80, 125, 80, 80), "Medium"),
+    pygbutton.PygButton((60 + 160, 125, 80, 80), "Hard"),
+    pygbutton.PygButton((20, 20, 280, 40), "Advanced")
 ]
 
 adv_option_buttons = [
-    pygbutton.PygButton((50 + 160, 50, 60, 60), "Basic"),
-    pygbutton.PygButton((50, 50 + 80, 220, 60), "Go!")
+    pygbutton.PygButton((20, 20, 280, 40), "Basic"),
+    pygbutton.PygButton((60 + 160, 125, 80, 80), "Go!")
 ]
 
 # gotta fix thos coords brotha
