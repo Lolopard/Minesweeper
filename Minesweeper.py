@@ -103,9 +103,9 @@ window_size = (squares_y * square_size, squares_x * square_size + 48)
 window = pygame.display.set_mode(window_size)
 
 pygame.display.set_caption("Minesweeper")
-
+'''
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
-
+'''
 logo = pygame.image.load('icon.png')
 
 face = pygame.image.load("face.png")
