@@ -10,7 +10,7 @@ clock = pygame.time.Clock()
 
 font = pygame.font.SysFont("Comic Sans MS", 12)
 
-'''
+
 
 window = pygame.display.set_mode([320, 240])
 
@@ -21,41 +21,68 @@ pygame.display.set_icon(pygame.image.load('settingsicon.png'))
 # OPTIONS MENU
 
 adv = False
-while True:
+done = False
+
+x_type = pygame.Rect(100, 75, 160, 30)
+y_type = pygame.Rect(20, 80 + 55, 160, 40)
+m_type = pygame.Rect(20, 80 + 60 + 50, 100, 40)
+    
+while done is False:
     for event in pygame.event.get():
         if event.type == QUIT:
             print("User asked to quit")
             pygame.quit()
             sys.exit()
         if 'click' in option_buttons[0].handleEvent(event) and adv is False:
-            pass
+            # Easy
+            squares_y = 24
+            squares_x = 20
+            mine_ratio = 0.18
+            done = True
         elif 'click' in option_buttons[1].handleEvent(event) and adv is False:
-            pass
+            # Medium
+            squares_y = 28
+            squares_x = 24
+            mine_ratio = 0.2
+            done = True
         elif 'click' in option_buttons[2].handleEvent(event) and adv is False:
-            pass
+            # Hard
+            squares_y = 32
+            squares_x = 28
+            mine_ratio = 0.22
+            done = True
         elif 'click' in option_buttons[3].handleEvent(event) and adv is False:
             adv = True
             custom = False
         elif 'click' in adv_option_buttons[0].handleEvent(event) and adv is True:
             adv = False
+            # Clears the typing fields
         elif 'click' in adv_option_buttons[1].handleEvent(event) and adv is True and custom is True:
+            # Translates the typing fields into the different variables
             pass
+        #if event.pos() == rect
     window.fill([192, 192, 192])
     if adv is False:
         for b in range(4):
             option_buttons[b].draw(window)
     else:
         adv_option_buttons[0].draw(window)
+        # TYPING FIELDS #
+        pygame.draw.rect(window, [0, 0, 0], x_type, 0)
+        pygame.draw.rect(window, [0, 0, 0], y_type, 0)
+        pygame.draw.rect(window, [0, 0, 0], m_type, 0)
         if custom is True:
             adv_option_buttons[1].draw(window)
     pygame.display.flip()
+    if done is True:
+        pygame.quit()
 
-'''
+
 
 square_size = 16  # length of side of square in pixels
 
 # Stuff to put into options menu
-
+'''
 print("Choose board settings (press enter without an input for default)")
 squares_y = (input("Number of squares in x axis: "))
 squares_x = (input("Number of squares in y axis: "))
@@ -69,12 +96,11 @@ else:
     squares_y = int(squares_y)
     squares_x = int(squares_x)
     mine_ratio = float(mine_ratio)
-
+'''
 
 window_size = (squares_y * square_size, squares_x * square_size + 48)
 
 window = pygame.display.set_mode(window_size)
-# To here^
 
 pygame.display.set_caption("Minesweeper")
 
