@@ -8,7 +8,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-font = pygame.font.SysFont("Comic Sans MS", 12)
+font = pygame.font.SysFont("Comic Sans MS", 22, False, False)
 
 
 
@@ -23,9 +23,15 @@ pygame.display.set_icon(pygame.image.load('settingsicon.png'))
 adv = False
 done = False
 
-x_type = pygame.Rect(100, 75, 160, 30)
-y_type = pygame.Rect(20, 80 + 55, 160, 40)
-m_type = pygame.Rect(20, 80 + 60 + 50, 100, 40)
+x_type = pygame.Rect(140, 90, 60, 30)
+y_type = pygame.Rect(140, 90 + 45, 60, 30)
+m_type = pygame.Rect(140, 90 + 90, 60, 30)
+
+x_active = False
+y_active = False
+m_active = False
+
+x_string = ""
     
 while done is False:
     for event in pygame.event.get():
@@ -56,11 +62,32 @@ while done is False:
             custom = False
         elif 'click' in adv_option_buttons[0].handleEvent(event) and adv is True:
             adv = False
-            # Clears the typing fields
         elif 'click' in adv_option_buttons[1].handleEvent(event) and adv is True and custom is True:
             # Translates the typing fields into the different variables
             pass
-        #if event.pos() == rect
+        elif event.type == pygame.MOUSEBUTTONDOWN and adv is True:
+            if x_type.collidepoint(event.pos):
+                x_active = True
+                # Colour can go here I guess for compactness
+            else:
+                x_active = False
+        elif event.type == pygame.KEYDOWN and x_active is True:
+            if event.key == pygame.K_BACKSPACE:
+                x_string = x_string[:-1]
+            elif len(x_string) < 3:
+                x_string += event.unicode
+    # Colour handling
+    if x_active is True:
+        x_colour = [0, 0, 0]
+        y_colour = [70, 70, 70]
+        m_colour = [70, 70, 70]
+    else:
+        x_colour = [70, 70, 70]
+        y_colour = [70, 70, 70]
+        m_colour = [70, 70, 70]
+
+    x_text = font.render(x_string, True, [255, 255, 255])
+        
     window.fill([192, 192, 192])
     if adv is False:
         for b in range(4):
@@ -68,15 +95,15 @@ while done is False:
     else:
         adv_option_buttons[0].draw(window)
         # TYPING FIELDS #
-        pygame.draw.rect(window, [0, 0, 0], x_type, 0)
+        pygame.draw.rect(window, x_colour, x_type, 0)
         pygame.draw.rect(window, [0, 0, 0], y_type, 0)
         pygame.draw.rect(window, [0, 0, 0], m_type, 0)
+        window.blit(x_text, (150, 89))
         if custom is True:
             adv_option_buttons[1].draw(window)
     pygame.display.flip()
     if done is True:
         pygame.quit()
-
 
 
 square_size = 16  # length of side of square in pixels
