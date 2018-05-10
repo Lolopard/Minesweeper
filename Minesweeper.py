@@ -25,13 +25,19 @@ done = False
 
 x_type = pygame.Rect(140, 90, 60, 30)
 y_type = pygame.Rect(140, 90 + 45, 60, 30)
-m_type = pygame.Rect(140, 90 + 90, 60, 30)
+m_type = pygame.Rect(140, 90 + 90, 90, 30)
 
 x_active = False
 y_active = False
 m_active = False
 
 x_string = ""
+y_string = ""
+m_string = "0.0"
+
+x_colour = [70, 70, 70]
+y_colour = [70, 70, 70]
+m_colour = [70, 70, 70]
     
 while done is False:
     for event in pygame.event.get():
@@ -64,29 +70,65 @@ while done is False:
             adv = False
         elif 'click' in adv_option_buttons[1].handleEvent(event) and adv is True and custom is True:
             # Translates the typing fields into the different variables
-            pass
+            squares_y = int(y_string)
+            squares_x = int(x_string)
+            mine_ratio = float(m_string)
+            done = True
         elif event.type == pygame.MOUSEBUTTONDOWN and adv is True:
             if x_type.collidepoint(event.pos):
                 x_active = True
-                # Colour can go here I guess for compactness
+                y_active = False
+                m_active = False
+                x_colour = [0, 0, 0]
+                y_colour = [70, 70, 70]
+                m_colour = [70, 70, 70]
+            elif y_type.collidepoint(event.pos):
+                x_active = False
+                y_active = True
+                m_active = False
+                x_colour = [70, 70, 70]
+                y_colour = [0, 0, 0]
+                m_colour = [70, 70, 70]
+            elif m_type.collidepoint(event.pos):
+                x_active = False
+                y_active = False
+                m_active = True
+                x_colour = [70, 70, 70]
+                y_colour = [70, 70, 70]
+                m_colour = [0, 0, 0] 
             else:
                 x_active = False
+                y_active = False
+                m_active = False
+                x_colour = [70, 70, 70]
+                y_colour = [70, 70, 70]
+                m_colour = [70, 70, 70]
+                # how to clean this mess up?????????
         elif event.type == pygame.KEYDOWN and x_active is True:
             if event.key == pygame.K_BACKSPACE:
                 x_string = x_string[:-1]
             elif len(x_string) < 3:
                 x_string += event.unicode
-    # Colour handling
-    if x_active is True:
-        x_colour = [0, 0, 0]
-        y_colour = [70, 70, 70]
-        m_colour = [70, 70, 70]
-    else:
-        x_colour = [70, 70, 70]
-        y_colour = [70, 70, 70]
-        m_colour = [70, 70, 70]
+        elif event.type == pygame.KEYDOWN and y_active is True:
+            if event.key == pygame.K_BACKSPACE:
+                y_string = y_string[:-1]
+            elif len(y_string) < 3:
+                y_string += event.unicode
+        elif event.type == pygame.KEYDOWN and m_active is True:
+            if event.key == pygame.K_BACKSPACE and len(m_string) > 3:
+                m_string = m_string[:-1]
+            elif len(m_string) < 6:
+                m_string += event.unicode
 
     x_text = font.render(x_string, True, [255, 255, 255])
+    y_text = font.render(y_string, True, [255, 255, 255])
+    m_text = font.render(m_string, True, [255, 255, 255])
+
+    try:
+        if int(x_string) != 0 and int(y_string) != 0 and float(m_string) != 0:
+            custom = True
+    except:
+        custom = False
         
     window.fill([192, 192, 192])
     if adv is False:
@@ -96,9 +138,11 @@ while done is False:
         adv_option_buttons[0].draw(window)
         # TYPING FIELDS #
         pygame.draw.rect(window, x_colour, x_type, 0)
-        pygame.draw.rect(window, [0, 0, 0], y_type, 0)
-        pygame.draw.rect(window, [0, 0, 0], m_type, 0)
+        pygame.draw.rect(window, y_colour, y_type, 0)
+        pygame.draw.rect(window, m_colour, m_type, 0)
         window.blit(x_text, (150, 89))
+        window.blit(y_text, (150, 134))
+        window.blit(m_text, (150, 179))
         if custom is True:
             adv_option_buttons[1].draw(window)
     pygame.display.flip()
