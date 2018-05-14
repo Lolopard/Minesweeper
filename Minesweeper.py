@@ -76,34 +76,17 @@ while done is False:
             done = True
         elif event.type == pygame.MOUSEBUTTONDOWN and adv is True:
             if x_type.collidepoint(event.pos):
-                x_active = True
-                y_active = False
-                m_active = False
-                x_colour = [0, 0, 0]
-                y_colour = [70, 70, 70]
-                m_colour = [70, 70, 70]
+                x_active, y_active, m_active = True, False, False
+                x_colour, y_colour, m_colour = [0, 0, 0], [70, 70, 70], [70, 70, 70]
             elif y_type.collidepoint(event.pos):
-                x_active = False
-                y_active = True
-                m_active = False
-                x_colour = [70, 70, 70]
-                y_colour = [0, 0, 0]
-                m_colour = [70, 70, 70]
+                x_active, y_active, m_active = False, True, False
+                x_colour, y_colour, m_colour = [70, 70, 70], [0, 0, 0], [70, 70, 70]
             elif m_type.collidepoint(event.pos):
-                x_active = False
-                y_active = False
-                m_active = True
-                x_colour = [70, 70, 70]
-                y_colour = [70, 70, 70]
-                m_colour = [0, 0, 0] 
+                x_active, y_active, m_active = False, False, True
+                x_colour, y_colour, m_colour = [70, 70, 70], [70, 70, 70], [0, 0, 0]
             else:
-                x_active = False
-                y_active = False
-                m_active = False
-                x_colour = [70, 70, 70]
-                y_colour = [70, 70, 70]
-                m_colour = [70, 70, 70]
-                # how to clean this mess up?????????
+                x_active = y_active = m_active = False
+                x_colour = y_colour = m_colour = [70, 70, 70]                
         elif event.type == pygame.KEYDOWN and x_active is True:
             if event.key == pygame.K_BACKSPACE:
                 x_string = x_string[:-1]
@@ -127,6 +110,8 @@ while done is False:
     try:
         if int(x_string) != 0 and int(y_string) != 0 and float(m_string) != 0:
             custom = True
+        else:
+            custom = False
     except:
         custom = False
         
