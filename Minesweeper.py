@@ -8,39 +8,137 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-font = pygame.font.SysFont("Comic Sans MS", 12)
+font = pygame.font.SysFont("Comic Sans MS", 22, False, False)
 
-'''
+
+
 window = pygame.display.set_mode([320, 240])
 
-window.fill([192, 192, 192])
-
 pygame.display.set_caption("Launch Options")
-'''
-'''
+
+pygame.display.set_icon(pygame.image.load('settingsicon.png'))
+
 # OPTIONS MENU
-while True:
+
+adv = False
+done = False
+
+x_type = pygame.Rect(140, 90, 60, 30)
+y_type = pygame.Rect(140, 90 + 45, 60, 30)
+m_type = pygame.Rect(140, 90 + 90, 90, 30)
+
+x_active = False
+y_active = False
+m_active = False
+
+x_string = ""
+y_string = ""
+m_string = "0.0"
+
+x_colour = [70, 70, 70]
+y_colour = [70, 70, 70]
+m_colour = [70, 70, 70]
+    
+while done is False:
     for event in pygame.event.get():
         if event.type == QUIT:
             print("User asked to quit")
             pygame.quit()
             sys.exit()
-        if 'click' in option_buttons[0].handleEvent(event):
-            pass
-        if 'click' in option_buttons[1].handleEvent(event):
-            pass
-        if 'click' in option_buttons[2].handleEvent(event):
-            pass
-        if 'click' in option_buttons[3].handleEvent(event):
-            pass
-    for b in range(4):
-        option_buttons[b].draw(window)
+        if 'click' in option_buttons[0].handleEvent(event) and adv is False:
+            # Easy
+            squares_y = 24
+            squares_x = 20
+            mine_ratio = 0.18
+            done = True
+        elif 'click' in option_buttons[1].handleEvent(event) and adv is False:
+            # Medium
+            squares_y = 28
+            squares_x = 24
+            mine_ratio = 0.2
+            done = True
+        elif 'click' in option_buttons[2].handleEvent(event) and adv is False:
+            # Hard
+            squares_y = 32
+            squares_x = 28
+            mine_ratio = 0.22
+            done = True
+        elif 'click' in option_buttons[3].handleEvent(event) and adv is False:
+            adv = True
+            custom = False
+        elif 'click' in adv_option_buttons[0].handleEvent(event) and adv is True:
+            adv = False
+        elif 'click' in adv_option_buttons[1].handleEvent(event) and adv is True and custom is True:
+            # Translates the typing fields into the different variables
+            squares_y = int(y_string)
+            squares_x = int(x_string)
+            mine_ratio = float(m_string)
+            done = True
+        elif event.type == pygame.MOUSEBUTTONDOWN and adv is True:
+            if x_type.collidepoint(event.pos):
+                x_active, y_active, m_active = True, False, False
+                x_colour, y_colour, m_colour = [0, 0, 0], [70, 70, 70], [70, 70, 70]
+            elif y_type.collidepoint(event.pos):
+                x_active, y_active, m_active = False, True, False
+                x_colour, y_colour, m_colour = [70, 70, 70], [0, 0, 0], [70, 70, 70]
+            elif m_type.collidepoint(event.pos):
+                x_active, y_active, m_active = False, False, True
+                x_colour, y_colour, m_colour = [70, 70, 70], [70, 70, 70], [0, 0, 0]
+            else:
+                x_active = y_active = m_active = False
+                x_colour = y_colour = m_colour = [70, 70, 70]                
+        elif event.type == pygame.KEYDOWN and x_active is True:
+            if event.key == pygame.K_BACKSPACE:
+                x_string = x_string[:-1]
+            elif len(x_string) < 3:
+                x_string += event.unicode
+        elif event.type == pygame.KEYDOWN and y_active is True:
+            if event.key == pygame.K_BACKSPACE:
+                y_string = y_string[:-1]
+            elif len(y_string) < 3:
+                y_string += event.unicode
+        elif event.type == pygame.KEYDOWN and m_active is True:
+            if event.key == pygame.K_BACKSPACE and len(m_string) > 3:
+                m_string = m_string[:-1]
+            elif len(m_string) < 6:
+                m_string += event.unicode
+
+    x_text = font.render(x_string, True, [255, 255, 255])
+    y_text = font.render(y_string, True, [255, 255, 255])
+    m_text = font.render(m_string, True, [255, 255, 255])
+
+    try:
+        if int(x_string) != 0 and int(y_string) != 0 and float(m_string) != 0:
+            custom = True
+        else:
+            custom = False
+    except:
+        custom = False
+        
+    window.fill([192, 192, 192])
+    if adv is False:
+        for b in range(4):
+            option_buttons[b].draw(window)
+    else:
+        adv_option_buttons[0].draw(window)
+        # TYPING FIELDS #
+        pygame.draw.rect(window, x_colour, x_type, 0)
+        pygame.draw.rect(window, y_colour, y_type, 0)
+        pygame.draw.rect(window, m_colour, m_type, 0)
+        window.blit(x_text, (150, 89))
+        window.blit(y_text, (150, 134))
+        window.blit(m_text, (150, 179))
+        if custom is True:
+            adv_option_buttons[1].draw(window)
     pygame.display.flip()
-'''
+    if done is True:
+        pygame.quit()
+
+
 square_size = 16  # length of side of square in pixels
 
 # Stuff to put into options menu
-
+'''
 print("Choose board settings (press enter without an input for default)")
 squares_y = (input("Number of squares in x axis: "))
 squares_x = (input("Number of squares in y axis: "))
@@ -54,17 +152,16 @@ else:
     squares_y = int(squares_y)
     squares_x = int(squares_x)
     mine_ratio = float(mine_ratio)
-
+'''
 
 window_size = (squares_y * square_size, squares_x * square_size + 48)
 
 window = pygame.display.set_mode(window_size)
-# To here^
 
 pygame.display.set_caption("Minesweeper")
-
+'''
 font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
-
+'''
 logo = pygame.image.load('icon.png')
 
 face = pygame.image.load("face.png")
