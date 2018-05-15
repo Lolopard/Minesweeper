@@ -10,8 +10,6 @@ clock = pygame.time.Clock()
 
 font = pygame.font.SysFont("Comic Sans MS", 22, False, False)
 
-
-
 window = pygame.display.set_mode([320, 240])
 
 pygame.display.set_caption("Launch Options")
@@ -134,6 +132,8 @@ while done is False:
     if done is True:
         pygame.quit()
 
+pygame.init()
+font = pygame.font.SysFont("Comic Sans MS", 22, False, False)
 
 square_size = 16  # length of side of square in pixels
 
