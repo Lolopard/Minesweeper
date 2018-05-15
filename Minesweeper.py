@@ -100,10 +100,13 @@ time_start = time.clock()
 
 time_elapsed = 0
 
+timer_on = True
+
 # main game loop
 while True:
     window.fill([192, 192, 192])
-    time_elapsed = round(time.clock() - time_start)
+    if game_state == "playing":
+        time_elapsed = round(time.clock() - time_start)
     for event in pygame.event.get():
         restart_button.draw(window)
         if event.type == QUIT:
@@ -111,7 +114,6 @@ while True:
             pygame.quit()
             sys.exit()
         if game_state == "playing": # If you win or lose, you can't play
-            window.blit(face, (window_size[0] / 2 - 16, 8))
             for x in range(0, squares_x):
                 for y in range(0, squares_y):
                     if first_click is True:
@@ -130,6 +132,7 @@ while True:
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
                                     game_state = "won"
                                     print("You won")
+
                     else:
                         if 'click' in field_buttons[y][x].handleEvent(event):
                             first_click = True
@@ -140,20 +143,23 @@ while True:
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
                                     game_state = "won"
                                     print("You won")
+    if game_state == "playing":
+        window.blit(face, (window_size[0] / 2 - 16, 8))
 
-        elif game_state == "lost":
-            window.blit(face_lose, (window_size[0] / 2 - 16, 8))
+    elif game_state == "lost":
+        window.blit(face_lose, (window_size[0] / 2 - 16, 8))
 
-        elif game_state == "won":
-            window.blit(face_win, (window_size[0] / 2 - 16, 8))
+    elif game_state == "won":
+        window.blit(face_win, (window_size[0] / 2 - 16, 8))
 
-        if "click" in restart_button.handleEvent(event):
-            generated_buttons = generate_buttons(squares_y, squares_x, square_size)
-            field_buttons = generated_buttons[0]
-            clicked_buttons = generated_buttons[1]
-            minefield = generate_board(squares_y, squares_x, x, y, mine_ratio)
-            first_click = True
-            game_state = "playing"
+    if "click" in restart_button.handleEvent(event):
+        generated_buttons = generate_buttons(squares_y, squares_x, square_size)
+        field_buttons = generated_buttons[0]
+        clicked_buttons = generated_buttons[1]
+        minefield = generate_board(squares_y, squares_x, x, y, mine_ratio)
+        first_click = False
+        game_state = "playing"
+        time_start = time.clock()
 
     time_display = font.render(str(time_elapsed), 1, (0, 0, 0))
     window.blit(time_display, (0, 0))
