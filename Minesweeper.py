@@ -31,7 +31,7 @@ m_active = False
 
 x_string = ""
 y_string = ""
-m_string = "0.0"
+m_string = "0."
 
 x_colour = [70, 70, 70]
 y_colour = [70, 70, 70]
@@ -96,7 +96,7 @@ while done is False:
             elif len(y_string) < 3:
                 y_string += event.unicode
         elif event.type == pygame.KEYDOWN and m_active is True:
-            if event.key == pygame.K_BACKSPACE and len(m_string) > 3:
+            if event.key == pygame.K_BACKSPACE and len(m_string) > 2:
                 m_string = m_string[:-1]
             elif len(m_string) < 6:
                 m_string += event.unicode
