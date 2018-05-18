@@ -98,7 +98,7 @@ while done is False:
         elif event.type == pygame.KEYDOWN and m_active is True:
             if event.key == pygame.K_BACKSPACE and len(m_string) > 2:
                 m_string = m_string[:-1]
-            elif len(m_string) < 6:
+            elif len(m_string) < 6 and event.key != pygame.K_BACKSPACE:
                 m_string += event.unicode
 
     x_text = font.render(x_string, True, [255, 255, 255])
