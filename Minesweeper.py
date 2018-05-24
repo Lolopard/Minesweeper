@@ -8,7 +8,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-font = pygame.font.SysFont("Comic Sans MS", 22, False, False)
+font = pygame.font.SysFont("Comic sans MS", 22, False, False)
 
 window = pygame.display.set_mode([320, 240])
 
@@ -25,17 +25,13 @@ x_type = pygame.Rect(140, 90, 60, 30)
 y_type = pygame.Rect(140, 90 + 45, 60, 30)
 m_type = pygame.Rect(140, 90 + 90, 90, 30)
 
-x_active = False
-y_active = False
-m_active = False
+x_active = y_active = m_active = False
 
 x_string = ""
 y_string = ""
 m_string = "0."
 
-x_colour = [70, 70, 70]
-y_colour = [70, 70, 70]
-m_colour = [70, 70, 70]
+x_colour = y_colour = m_colour = [70, 70, 70]
     
 while done is False:
     for event in pygame.event.get():
@@ -68,8 +64,8 @@ while done is False:
             adv = False
         elif 'click' in adv_option_buttons[1].handleEvent(event) and adv is True and custom is True:
             # Translates the typing fields into the different variables
-            squares_y = int(y_string)
-            squares_x = int(x_string)
+            squares_y = int(x_string)
+            squares_x = int(y_string)
             mine_ratio = float(m_string)
             done = True
         elif event.type == pygame.MOUSEBUTTONDOWN and adv is True:
@@ -105,6 +101,10 @@ while done is False:
     y_text = font.render(y_string, True, [255, 255, 255])
     m_text = font.render(m_string, True, [255, 255, 255])
 
+    x_discription = font.render("X Length:", True, [0, 0, 0])
+    y_discription = font.render("Y Length:", True, [0, 0, 0])
+    m_discription = font.render("Bomb Ratio:", True, [0, 0, 0])
+
     try:
         if int(x_string) != 0 and int(y_string) != 0 and float(m_string) != 0:
             custom = True
@@ -126,6 +126,9 @@ while done is False:
         window.blit(x_text, (150, 89))
         window.blit(y_text, (150, 134))
         window.blit(m_text, (150, 179))
+        window.blit(x_discription, (20, 89))
+        window.blit(y_discription, (20, 134))
+        window.blit(m_discription, (11, 179))
         if custom is True:
             adv_option_buttons[1].draw(window)
     pygame.display.flip()

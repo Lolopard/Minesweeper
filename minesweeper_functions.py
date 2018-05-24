@@ -148,8 +148,6 @@ adv_option_buttons = [
     pygbutton.PygButton((20, 20, 280, 40), "Basic"),
     pygbutton.PygButton((60 + 160, 80, 80, 80), "Go!")
 ]
-
-# gotta fix thos coords brotha
     
 
 
