@@ -8,7 +8,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-font = pygame.font.SysFont("Comic sans MS", 22, False, False)
+font = pygame.font.SysFont("Comic Sans MS", 22, False, False)
 
 window = pygame.display.set_mode([320, 240])
 
@@ -44,19 +44,19 @@ while done is False:
                 # Easy
                 squares_y = 24
                 squares_x = 20
-                mine_ratio = 0.18
+                mine_ratio = 0.1
                 done = True
             elif 'click' in option_buttons[1].handleEvent(event):
                 # Medium
                 squares_y = 28
                 squares_x = 24
-                mine_ratio = 0.2
+                mine_ratio = 0.15
                 done = True
             elif 'click' in option_buttons[2].handleEvent(event):
                 # Hard
                 squares_y = 32
                 squares_x = 28
-                mine_ratio = 0.22
+                mine_ratio = 0.20
                 done = True
             elif 'click' in option_buttons[3].handleEvent(event):
                 adv = True
@@ -136,26 +136,9 @@ while done is False:
     pygame.display.flip()
 
 
-font = pygame.font.SysFont("Comic Sans MS", 22, False, False)
+font = pygame.font.SysFont("Trebuchet MS", 22, False, False)
 
 square_size = 16  # length of side of square in pixels
-
-# Stuff to put into options menu
-'''
-print("Choose board settings (press enter without an input for default)")
-squares_y = (input("Number of squares in x axis: "))
-squares_x = (input("Number of squares in y axis: "))
-mine_ratio = (input("Ratio of mines to squares: "))
-
-if squares_y == "" and squares_x == "" and mine_ratio == "":
-    squares_y = 20
-    squares_x = 20
-    mine_ratio = 0.1
-else:
-    squares_y = int(squares_y)
-    squares_x = int(squares_x)
-    mine_ratio = float(mine_ratio)
-'''
 
 window_size = (squares_y * square_size, squares_x * square_size + 48)
 
@@ -176,7 +159,6 @@ for x in range(0, 9):
     picture_list.append(pygame.image.load(str(x) + ".png"))
 
 picture_list.append(pygame.image.load("mine.png"))
-
 picture_list.append(pygame.image.load("mine_blow.png"))
 
 pygame.display.set_icon(logo)
@@ -262,7 +244,9 @@ while True:
         time_start = time.clock()
 
     time_display = font.render(str(time_elapsed), 1, (0, 0, 0))
-    window.blit(time_display, (0, 0))
+    square_count_display = font.render(str(squares_left(clicked_buttons,int(squares_x * squares_y * mine_ratio))), 1, (0, 0, 0))
+    window.blit(time_display, (0, 20))
+    window.blit(square_count_display, (squares_x*16, 20))
             
     for x in range(0, squares_x):
         for y in range(0, squares_y):

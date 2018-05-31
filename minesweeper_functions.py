@@ -6,7 +6,6 @@ import pygbutton
 mine = "*"
 mine_blow = "#"
 
-
 # outputs a field with generated mines and accompanying number squares
 def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
     minefield = []
@@ -95,10 +94,6 @@ def generate_buttons(squares_x, squares_y, square_size):
     return [field_buttons, clicked_buttons]
 
 
-# let's try with Jimbob
-# it kinda doesnt work
-# I dont know why
-
 def big_clear(x, y, minefield, clicked_buttons, length_x, length_y):
     operation = [(x, y)]
     while len(operation) > 0:
@@ -135,6 +130,15 @@ def win_check(minefield, clicked_buttons, length_x, length_y):
             if clicked_buttons[y][x] is False and minefield[y][x] != mine:
                 return False
     return True
+
+
+def squares_left(button_list, mine_count):
+    button_count = 0
+    for l in button_list:
+        for e in l:
+            if e is False:
+                button_count += 1
+    return button_count - mine_count
 
 
 option_buttons = [
