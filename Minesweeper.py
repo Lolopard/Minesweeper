@@ -39,49 +39,51 @@ while done is False:
             print("User asked to quit")
             pygame.quit()
             sys.exit()
-        if 'click' in option_buttons[0].handleEvent(event) and adv is False:
-            # Easy
-            squares_y = 24
-            squares_x = 20
-            mine_ratio = 0.18
-            done = True
-        elif 'click' in option_buttons[1].handleEvent(event) and adv is False:
-            # Medium
-            squares_y = 28
-            squares_x = 24
-            mine_ratio = 0.2
-            done = True
-        elif 'click' in option_buttons[2].handleEvent(event) and adv is False:
-            # Hard
-            squares_y = 32
-            squares_x = 28
-            mine_ratio = 0.22
-            done = True
-        elif 'click' in option_buttons[3].handleEvent(event) and adv is False:
-            adv = True
-            custom = False
-        elif 'click' in adv_option_buttons[0].handleEvent(event) and adv is True:
-            adv = False
-        elif 'click' in adv_option_buttons[1].handleEvent(event) and adv is True and custom is True:
-            # Translates the typing fields into the different variables
-            squares_y = int(x_string)
-            squares_x = int(y_string)
-            mine_ratio = float(m_string)
-            done = True
-        elif event.type == pygame.MOUSEBUTTONDOWN and adv is True:
-            if x_type.collidepoint(event.pos):
-                x_active, y_active, m_active = True, False, False
-                x_colour, y_colour, m_colour = [0, 0, 0], [70, 70, 70], [70, 70, 70]
-            elif y_type.collidepoint(event.pos):
-                x_active, y_active, m_active = False, True, False
-                x_colour, y_colour, m_colour = [70, 70, 70], [0, 0, 0], [70, 70, 70]
-            elif m_type.collidepoint(event.pos):
-                x_active, y_active, m_active = False, False, True
-                x_colour, y_colour, m_colour = [70, 70, 70], [70, 70, 70], [0, 0, 0]
-            else:
-                x_active = y_active = m_active = False
-                x_colour = y_colour = m_colour = [70, 70, 70]                
-        elif event.type == pygame.KEYDOWN and x_active is True:
+        if adv is False:
+            if 'click' in option_buttons[0].handleEvent(event):
+                # Easy
+                squares_y = 24
+                squares_x = 20
+                mine_ratio = 0.18
+                done = True
+            elif 'click' in option_buttons[1].handleEvent(event):
+                # Medium
+                squares_y = 28
+                squares_x = 24
+                mine_ratio = 0.2
+                done = True
+            elif 'click' in option_buttons[2].handleEvent(event):
+                # Hard
+                squares_y = 32
+                squares_x = 28
+                mine_ratio = 0.22
+                done = True
+            elif 'click' in option_buttons[3].handleEvent(event):
+                adv = True
+                custom = False
+        elif adv is True:
+            if 'click' in adv_option_buttons[0].handleEvent(event):
+                adv = False
+            elif 'click' in adv_option_buttons[1].handleEvent(event) and custom is True:
+                # Translates the typing fields into the different variables
+                squares_y = int(x_string)
+                squares_x = int(y_string)
+                mine_ratio = float(m_string)
+                done = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if x_type.collidepoint(event.pos):
+                    x_active, y_active, m_active = True, False, False
+                    x_colour, y_colour, m_colour = [0, 0, 0], [70, 70, 70], [70, 70, 70]
+                elif y_type.collidepoint(event.pos):
+                    x_active, y_active, m_active = False, True, False
+                    x_colour, y_colour, m_colour = [70, 70, 70], [0, 0, 0], [70, 70, 70]
+                elif m_type.collidepoint(event.pos):
+                    x_active, y_active, m_active = False, False, True
+                    x_colour, y_colour, m_colour = [70, 70, 70], [70, 70, 70], [0, 0, 0]
+                else:
+                    x_active = y_active = m_active = False
+                    x_colour = y_colour = m_colour = [70, 70, 70]
+        if event.type == pygame.KEYDOWN and x_active is True:
             if event.key == pygame.K_BACKSPACE:
                 x_string = x_string[:-1]
             elif len(x_string) < 3:
@@ -101,9 +103,9 @@ while done is False:
     y_text = font.render(y_string, True, [255, 255, 255])
     m_text = font.render(m_string, True, [255, 255, 255])
 
-    x_discription = font.render("X Length:", True, [0, 0, 0])
-    y_discription = font.render("Y Length:", True, [0, 0, 0])
-    m_discription = font.render("Bomb Ratio:", True, [0, 0, 0])
+    x_description = font.render("X Length:", True, [0, 0, 0])
+    y_description = font.render("Y Length:", True, [0, 0, 0])
+    m_description = font.render("Bomb Ratio:", True, [0, 0, 0])
 
     try:
         if int(x_string) != 0 and int(y_string) != 0 and float(m_string) != 0:
@@ -126,16 +128,14 @@ while done is False:
         window.blit(x_text, (150, 89))
         window.blit(y_text, (150, 134))
         window.blit(m_text, (150, 179))
-        window.blit(x_discription, (20, 89))
-        window.blit(y_discription, (20, 134))
-        window.blit(m_discription, (11, 179))
+        window.blit(x_description, (20, 89))
+        window.blit(y_description, (20, 134))
+        window.blit(m_description, (11, 179))
         if custom is True:
             adv_option_buttons[1].draw(window)
     pygame.display.flip()
-    if done is True:
-        pygame.quit()
 
-pygame.init()
+
 font = pygame.font.SysFont("Comic Sans MS", 22, False, False)
 
 square_size = 16  # length of side of square in pixels
@@ -213,7 +213,7 @@ while True:
             print("User asked to quit")
             pygame.quit()
             sys.exit()
-        if game_state == "playing": # If you win or lose, you can't play
+        if game_state == "playing":  # If you win or lose, you can't play
             for x in range(0, squares_x):
                 for y in range(0, squares_y):
                     if first_click is True:
