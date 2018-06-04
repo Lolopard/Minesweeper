@@ -232,9 +232,9 @@ while True:
                             clicked_buttons[y][x] = True
                             if minefield[y][x] == 0:
                                 big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
-                                if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
-                                    game_state = "won"
-                                    print("You won")
+                            if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
+                                game_state = "won"
+                                print("You won")
                             num_squares_left = squares_left(clicked_buttons, int(squares_x * squares_y * mine_ratio))
 
     if game_state == "playing":
