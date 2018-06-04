@@ -68,13 +68,10 @@ def generate_blank(length_x, length_y):
     return minefield
 
 
-def print_board(minefield):
-    for l in minefield:
-        for e in l:
-            if e == mine:
-                print("*", end=" ")
-            else:
-                print(e, end=" ")
+def print_board(minefield, squares_x, squares_y):
+    for x in range(squares_x):
+        for y in range(squares_y):
+            print(minefield[y][x], end="")
         print()
 
 

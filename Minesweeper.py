@@ -43,12 +43,6 @@ while done is False:
             sys.exit()
         if 'click' in option_buttons[4].handleEvent(event):
                 # Cheats
-                '''
-                if cheats is False:
-                    cheats = True
-                else:     
-                    cheats = False
-                '''
                 cheats = not cheats
         if adv is False:
             if 'click' in option_buttons[0].handleEvent(event):
@@ -159,9 +153,7 @@ window_size = (squares_y * square_size, squares_x * square_size + 48)
 window = pygame.display.set_mode(window_size)
 
 pygame.display.set_caption("Minesweeper")
-'''
-font = pygame.font.SysFont('Comic Sans MS', 25, False, False)
-'''
+
 logo = pygame.image.load('icon.png')
 
 face = pygame.image.load("face.png")
@@ -226,17 +218,14 @@ while True:
                             clicked_buttons[y][x] = True
                             if minefield[y][x] == mine:
                                 game_state = "lost"
-                                print("You lost")
                                 loss_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
                             elif minefield[y][x] == 0:
                                 big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)    
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
                                     game_state = "won"
-                                    print("You won")
                             else:
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
                                     game_state = "won"
-                                    print("You won")
                             num_squares_left = squares_left(clicked_buttons, int(squares_x * squares_y * mine_ratio))
 
                     else:
@@ -244,12 +233,14 @@ while True:
                             first_click = True
                             minefield = generate_board(squares_y, squares_x, x, y, mine_ratio)
                             clicked_buttons[y][x] = True
+                            if cheats:
+                                print_board(minefield, squares_x, squares_y)
                             if minefield[y][x] == 0:
                                 big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
                             if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
                                 game_state = "won"
-                                print("You won")
                             num_squares_left = squares_left(clicked_buttons, int(squares_x * squares_y * mine_ratio))
+
 
     if game_state == "playing":
         if mouse_down:
