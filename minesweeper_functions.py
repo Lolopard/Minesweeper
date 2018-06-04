@@ -34,7 +34,7 @@ def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
             mine_pos_x = random.randint(1, (length_x))  # initial roll
             mine_pos_y = random.randint(1, (length_y))
             
-            if mine_pos_x == origin_x and mine_pos_y == origin_y:
+            if mine_pos_x == origin_y + 1 and mine_pos_y == origin_x + 1:
                 reroll = True
                 
             elif minefield[mine_pos_x][mine_pos_y] == mine:
