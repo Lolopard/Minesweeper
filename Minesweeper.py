@@ -187,6 +187,8 @@ timer_on = True
 
 mouse_down = False
 
+num_squares_left = squares_left(clicked_buttons, int(squares_x * squares_y * mine_ratio))
+
 # main game loop
 while True:
     window.fill([192, 192, 192])
@@ -221,6 +223,7 @@ while True:
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
                                     game_state = "won"
                                     print("You won")
+                            num_squares_left = squares_left(clicked_buttons, int(squares_x * squares_y * mine_ratio))
 
                     else:
                         if 'click' in field_buttons[y][x].handleEvent(event):
@@ -228,10 +231,11 @@ while True:
                             minefield = generate_board(squares_y, squares_x, x, y, mine_ratio)
                             clicked_buttons[y][x] = True
                             if minefield[y][x] == 0:
-                                big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)    
+                                big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
                                     game_state = "won"
                                     print("You won")
+                            num_squares_left = squares_left(clicked_buttons, int(squares_x * squares_y * mine_ratio))
 
     if game_state == "playing":
         if mouse_down:
@@ -254,10 +258,10 @@ while True:
         game_state = "playing"
         time_start = time.clock()
 
-    time_display = font.render(str(time_elapsed), 1, (0, 0, 0))
-    square_count_display = font.render(str(squares_left(clicked_buttons, int(squares_x * squares_y * mine_ratio))), 1, (0, 0, 0))
-    window.blit(time_display, (0, 20))
-    window.blit(square_count_display, (squares_x*16, 20))
+    time_display = font.render("Time:" + str(time_elapsed), 1, (0, 0, 0))
+    square_count_display = font.render("Squares:" + str(num_squares_left), 1, (0, 0, 0))
+    window.blit(time_display, (1, 20))
+    window.blit(square_count_display, (1, 0))
             
     for x in range(0, squares_x):
         for y in range(0, squares_y):
