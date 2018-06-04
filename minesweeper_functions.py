@@ -6,6 +6,7 @@ import pygbutton
 mine = "*"
 mine_blow = "#"
 
+
 # outputs a field with generated mines and accompanying number squares
 def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
     minefield = []
@@ -52,7 +53,6 @@ def generate_board(length_x, length_y, origin_x, origin_y, mine_ratio):
     for x in range(0, length_x):
         minefield[x].pop(0)
         minefield[x].pop(-1)
-        
 
     return minefield
 
