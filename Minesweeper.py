@@ -32,6 +32,8 @@ y_string = ""
 m_string = "0."
 
 x_colour = y_colour = m_colour = [70, 70, 70]
+
+cheats = False
     
 while done is False:
     for event in pygame.event.get():
@@ -39,6 +41,15 @@ while done is False:
             print("User asked to quit")
             pygame.quit()
             sys.exit()
+        if 'click' in option_buttons[4].handleEvent(event):
+                # Cheats
+                '''
+                if cheats is False:
+                    cheats = True
+                else:     
+                    cheats = False
+                '''
+                cheats = not cheats
         if adv is False:
             if 'click' in option_buttons[0].handleEvent(event):
                 # Easy
@@ -116,6 +127,9 @@ while done is False:
         custom = False
         
     window.fill([192, 192, 192])
+    option_buttons[4].draw(window)
+    if cheats is True:
+        window.blit(pygame.image.load("check.png"),(240, 20))
     if adv is False:
         for b in range(4):
             option_buttons[b].draw(window)

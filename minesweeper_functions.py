@@ -145,11 +145,12 @@ option_buttons = [
     pygbutton.PygButton((20, 125, 80, 80), "Easy"),
     pygbutton.PygButton((40 + 80, 125, 80, 80), "Medium"),
     pygbutton.PygButton((60 + 160, 125, 80, 80), "Hard"),
-    pygbutton.PygButton((20, 20, 280, 40), "Advanced")
+    pygbutton.PygButton((20, 20, 200, 40), "Advanced"),
+    pygbutton.PygButton((240, 20, 60, 40), "Cheats")
 ]
 
 adv_option_buttons = [
-    pygbutton.PygButton((20, 20, 280, 40), "Basic"),
+    pygbutton.PygButton((20, 20, 200, 40), "Basic"),
     pygbutton.PygButton((60 + 160, 80, 80, 80), "Go!")
 ]
     
