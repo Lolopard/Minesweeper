@@ -185,7 +185,7 @@ game_state = "playing"
 
 first_click = False
 
-time_start = time.clock()
+time_start = time.perf_counter()
 
 time_elapsed = 0
 
@@ -199,7 +199,7 @@ num_squares_left = squares_left(clicked_buttons, int(squares_x * squares_y * min
 while True:
     window.fill([192, 192, 192])
     if game_state == "playing":
-        time_elapsed = round(time.clock() - time_start)
+        time_elapsed = round(time.perf_counter() - time_start)
     for event in pygame.event.get():
         restart_button.draw(window)
         if event.type == QUIT:
@@ -220,13 +220,16 @@ while True:
                                 game_state = "lost"
                                 loss_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
                             elif minefield[y][x] == 0:
-                                big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)    
+                                big_clear(x, y, minefield, clicked_buttons, squares_x, squares_y)
+                                num_squares_left = squares_left(clicked_buttons,
+                                                                int(squares_x * squares_y * mine_ratio))
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
                                     game_state = "won"
                             else:
+                                num_squares_left = squares_left(clicked_buttons,
+                                                                int(squares_x * squares_y * mine_ratio))
                                 if win_check(minefield, clicked_buttons, squares_x, squares_y) is True:
                                     game_state = "won"
-                            num_squares_left = squares_left(clicked_buttons, int(squares_x * squares_y * mine_ratio))
 
                     else:
                         if 'click' in field_buttons[y][x].handleEvent(event):
@@ -261,7 +264,8 @@ while True:
         minefield = generate_blank(squares_y, squares_x)
         first_click = False
         game_state = "playing"
-        time_start = time.clock()
+        time_start = time.perf_counter()
+        num_squares_left = squares_left(clicked_buttons, int(squares_x * squares_y * mine_ratio))
 
     time_display = font.render("Time:" + str(time_elapsed), 1, (0, 0, 0))
     square_count_display = font.render("Squares:" + str(num_squares_left), 1, (0, 0, 0))
